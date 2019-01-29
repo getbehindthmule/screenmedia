@@ -1,0 +1,8 @@
+---
+applications:
+- name: greenhills-fuel-manager
+  memory: 256M
+  instances: 1
+  host: greenhills-fuel-manager
+  domain: guides.spring.io
+  path: build/libs/greenhills-fuel-manager-0.1.0.jar
