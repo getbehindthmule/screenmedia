@@ -17,10 +17,8 @@ public class FuelPriceDataTreeBuilder {
     public static TreeMap<LocalDate, FuelPriceData> mapFuelCsvToFuelDataTree(List<UkWeeklyPriceDetailsCsv> ukWeeklyPriceDetailsList) {
         // first collect to a transformed value  Map then convert to TreeMap - simpler than trying to create TreeMap directly for transformed values
         return ukWeeklyPriceDetailsList.stream()
-                .collect(Collectors.toMap(UkWeeklyPriceDetailsCsv::getLocalDate, FuelPriceDataTreeBuilder::buildFuelPriceData))
-                .entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey,
-                        Map.Entry::getValue,
+                .collect(Collectors.toMap(UkWeeklyPriceDetailsCsv::getLocalDate,
+                        FuelPriceDataTreeBuilder::buildFuelPriceData,
                         (oldValue, newValue) -> newValue,
                         TreeMap::new));
 
