@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 // cannot use lombok here because of an issue with Jackson unable to construct an instance from lombok
+// see https://github.com/rzwitserloot/lombok/issues/1563 for further investigation/resolution
 public class UkWeeklyPriceDetailsCsv {
     @JsonDeserialize(using= LocalDateDeserializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
