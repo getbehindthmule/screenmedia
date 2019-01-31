@@ -38,6 +38,10 @@ public class FuelController {
                                        @RequestParam("mileage") BigDecimal mileage) {
         LOGGER.info(String.format("getFuelSummary called with fromDate: %s, fuel_type: %s, mpg: %s, mileage: %s", fromDate, incomingFuelType, mpg, mileage));
 
+        if ((fromDate == null) || (incomingFuelType == null) || (mpg == null) || (mileage == null) ) {
+            throw new InvalidInputParametersException();
+        }
+
         FuelService.FuelType fuelType;
         try {
             fuelType = FuelService.FuelType.valueOf(incomingFuelType.toUpperCase());

@@ -96,4 +96,63 @@ public class FuelControllerTest {
         // assert
         assertThat(actualResponse).isEqualTo(expectedResponse);
     }
+
+    @Test
+    public void testNullDate() {
+        // arrange
+        expectedException.expect(InvalidInputParametersException.class);
+
+        when(mockFuelService.calculateFuelCost(any(), any(), any(), any())).thenReturn(Optional.of(BigDecimal.ONE));
+        when(mockFuelService.calculateDailyComparison(any(), any(), any(), any())).thenReturn (Optional.of(BigDecimal.ONE.negate()));
+        when(mockFuelService.calculateDuty(any(), any(), any(), any())).thenReturn (Optional.of(BigDecimal.ONE));
+
+        // act
+        sut.getFuelSummary(null, "DIESEL", BigDecimal.ONE, BigDecimal.ONE);
+    }
+
+
+    @Test
+    public void testNullFuelType() {
+        // arrange
+        expectedException.expect(InvalidInputParametersException.class);
+
+        when(mockFuelService.calculateFuelCost(any(), any(), any(), any())).thenReturn(Optional.of(BigDecimal.ONE));
+        when(mockFuelService.calculateDailyComparison(any(), any(), any(), any())).thenReturn (Optional.of(BigDecimal.ONE.negate()));
+        when(mockFuelService.calculateDuty(any(), any(), any(), any())).thenReturn (Optional.of(BigDecimal.ONE));
+
+        // act
+        sut.getFuelSummary(LocalDate.now(), null, BigDecimal.ONE, BigDecimal.ONE);
+
+        // assert
+        assert false;
+    }
+
+    @Test
+    public void testNullMpg() {
+        // arrange
+        expectedException.expect(InvalidInputParametersException.class);
+
+        when(mockFuelService.calculateFuelCost(any(), any(), any(), any())).thenReturn(Optional.of(BigDecimal.ONE));
+        when(mockFuelService.calculateDailyComparison(any(), any(), any(), any())).thenReturn (Optional.of(BigDecimal.ONE.negate()));
+        when(mockFuelService.calculateDuty(any(), any(), any(), any())).thenReturn (Optional.of(BigDecimal.ONE));
+
+        // act
+        sut.getFuelSummary(LocalDate.now(), "DIESEL", null, BigDecimal.ONE);
+
+        // assert
+        assert false;
+    }
+
+    @Test
+    public void testNullMileage() {
+        // arrange
+        expectedException.expect(InvalidInputParametersException.class);
+
+        when(mockFuelService.calculateFuelCost(any(), any(), any(), any())).thenReturn(Optional.of(BigDecimal.ONE));
+        when(mockFuelService.calculateDailyComparison(any(), any(), any(), any())).thenReturn (Optional.of(BigDecimal.ONE.negate()));
+        when(mockFuelService.calculateDuty(any(), any(), any(), any())).thenReturn (Optional.of(BigDecimal.ONE));
+
+        // act
+        sut.getFuelSummary(LocalDate.now(), "DIESEL", BigDecimal.ONE, null);
+    }
 }
